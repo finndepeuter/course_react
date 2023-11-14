@@ -9,6 +9,7 @@ import ControlledComponent from './components/controlled_component';
 import Form from './components/form';
 import Accordion from './components/accordion';
 import Calculator from './components/calculator';
+import BmiCalculator from './components/bmi_calculator';
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
     </div>
     <div>
       <Calculator></Calculator>
+      <br/>
+      <BmiCalculator></BmiCalculator>
     </div>
     </div>
 );
