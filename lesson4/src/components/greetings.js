@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Greetings() {
   var buttonStyle = {
@@ -18,7 +18,10 @@ export default function Greetings() {
   
   const message = `Hello, ${name}!`; // calculate output
   // not good!
-  document.title = `Greetings to ${name}`; // side-effect!
+  // document.title = `Greetings to ${name}`; // side-effect!
+  useEffect(() => {
+    document.title = `Greetings to ${name}`; // side-effect!
+  });
   // calculate output
   return ( 
     <div style={paddingStyle}>

@@ -1,6 +1,6 @@
 ﻿import configData from "../config.json";
 
-function WeatherItem({ }) {
+function WeatherItem({item, city}) {
     var cardStyle = {
         textAlign: 'center',
         padding: 20,
@@ -21,13 +21,13 @@ function WeatherItem({ }) {
     return (
       <div className="card" style={cardStyle}>
         <div style={textStyle}>
-          {} °C - {}
+          {item.main.temp} °C - {item.weather[0].description}
         </div>
         <img style={imageStyle}
           alt="tile"
-            src={configData.weatherapi + "static/" + "01n.png"} />
+            src={configData.weatherapi + "static/" + item.weather[0].icon + ".png"} />
         <div className="card-section" style={textStyle}>
-            <p>{} - {}</p>
+            <p>{city} - {item.dt_txt}</p>
         </div>
       </div>
     );
