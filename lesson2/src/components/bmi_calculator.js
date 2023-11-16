@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import './range.css';
 
 function Label({ text, value }) {
     var labelStyle = {

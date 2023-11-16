@@ -1,4 +1,4 @@
-function Header(props) {
+function Header({number}) {
     var headerStyle = {
         fontSize: 50,
         color: "#e65100",
@@ -8,7 +8,7 @@ function Header(props) {
     };
 
     return(
-        <div style={headerStyle}>{props.number}</div>
+        <div style={headerStyle}>{number}</div>
     );
 }
 
@@ -17,20 +17,20 @@ function numberToWord(number) {
     return words[number];
 }
 
-function Row(props) {
+function Row({factor1, factor2}) {
     var cellStyle = {
         fontSize : 20,
         color: "#455a64"
     };
 
-    let output = props.factor1 * props.factor2;
+    let output = factor1 * factor2;
     
     return(
-        <div style={cellStyle}>{props.factor1} x {props.factor2} = {output}</div>
+        <div style={cellStyle}>{factor1} x {factor2} = {output}</div>
     );
 }
 
-function MultiplicationTable(props) {
+function MultiplicationTable({number}) {
     var tableStyle = {
         fontFamily : "Comic Sans MS",
         textAlign: "center",
@@ -43,13 +43,13 @@ function MultiplicationTable(props) {
 
     let output = [];
     for (var i = 1; i <= 10; i++) {
-        output.push(<Row factor1={i} factor2={props.number}/>)
+        output.push(<Row factor1={i} factor2={number}/>)
     }
 
 
     return(
         <div style={tableStyle}>
-            <Header number={numberToWord(props.number)}/>
+            <Header number={numberToWord(number)}/>
             {output}
         </div>
     );
