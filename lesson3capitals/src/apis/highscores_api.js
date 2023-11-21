@@ -24,6 +24,8 @@ class HighscoresApi  {
     }
 
     add(name, score) {
+        // TODO: fix the adding of a new highscore
+        this.scores.add({player: name, score: score});
     }
 }
 

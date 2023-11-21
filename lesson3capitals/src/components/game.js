@@ -1,7 +1,7 @@
 import {Link, useNavigate} from 'react-router-dom';
 import CapitalsApi from '../apis/capitals_api';
 import { useState } from 'react';
-import { InputForm } from './input_form';
+import  InputForm  from './input_form';
 
 function Game() {
     const navigate = useNavigate();
@@ -9,21 +9,20 @@ function Game() {
     const [question, setQuestion]  = useState(0);
     const [score, setScore] = useState(1);
 
+    // TODO: fix the game, so the score is correcct
     const handleAnswerClick = (selectedAnswer) => {
         // Check if the selected answer is correct
         const isCorrect = selectedAnswer === api.get(question).capital;
     
-        if (isCorrect) {
-            setScore(score +1);
-            // If the answer is correct, move to the next question
-        }
         if (question + 1 < api.count()) {
+            if (isCorrect) {
+                setScore(score +1);
+                // If the answer is correct, move to the next question
+            }
             setQuestion(question + 1);
         } else {
-            // If there are no more questions, navigate back
-            return(
-                <InputForm></InputForm>
-            )
+            // If there are no more questions, navigate to form
+            // TODO: handle the input form
         }
         console.log(score);
     };
