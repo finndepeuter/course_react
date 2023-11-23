@@ -1,21 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import MockApi from '../apis/mock_api';
-
-// import MockApi from '../apis/mock_api';
 import { useNavigate} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
-export default function Detail({onClick }) {
+export default function Detail() {
   const { id } = useParams();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [iAgree, setIAgree] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
-      const customer = {
+      var customer = {
         id,
         firstName,
         lastName,
@@ -34,23 +34,19 @@ export default function Detail({onClick }) {
     }
   }
 
-  
-
   useEffect(() => {
-    const fetchData = async () => {
-      console.log(id);
-      if (id !== '0') {
-      const result = await MockApi.getbyid(id);
-      const customer = result.data;
-      setFirstName(customer.firstName);
-      setLastName(customer.lastName);
-      setIAgree(customer.iAgree);
-      }
-    };
-
-    fetchData();
+    if (id !== 0) {
+      getCustomer(id)
+    }
   }, [id]);
 
+  const getCustomer = async (id) => {
+    const result = await MockApi.getbyid(id);
+    const customer = result.data;
+    setFirstName(customer.firstName);
+    setLastName(customer.lastName);
+    setIAgree(customer.iAgree);
+  }
 
   return (
     <div>
@@ -67,7 +63,8 @@ export default function Detail({onClick }) {
           <Checkbox label='I agree to the Terms and Conditions' checked={iAgree} onChange={() => setIAgree(!iAgree)}/>
         </Form.Field>
         <Button type='button' onClick={handleSubmit}>
-          Submit
+          {(id === "0") && <>Add</>}
+          {(id !== "0") && <>Update</>}
           </Button>
       </Form>
     </div>
