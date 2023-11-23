@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Table, Button } from 'semantic-ui-react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import MockApi from '../apis/mock_api';
 
 export default function List() {
@@ -17,9 +17,7 @@ export default function List() {
 
   const deleteCustomer = async (id) => {
     await MockApi.delete(id);
-    setCustomers(customers.filter(
-      customer => customer.id !== id
-    ));
+    getCustomers();
   }
 
   return (
