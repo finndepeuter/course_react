@@ -1,7 +1,11 @@
+import { useRecoilState } from "recoil";
+import { todoListFilterState } from "../store";
+
 export default function TodoListFilters() {
-  
+  const [filter, setFilter] = useRecoilState(todoListFilterState);
+
   function updateFilter(event) {
-    
+    setFilter(event.target.value);
   }
 
   return (
