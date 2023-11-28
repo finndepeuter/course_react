@@ -5,7 +5,7 @@ function Highscores() {
     const navigate = useNavigate();
     // api needs to be instantiated because the functions aren't static
     const api = new HighscoresApi();
-    const scores = api.all().map( (score, index) => {
+    const scores = api.all().slice(0,5).map( (score, index) => {
         return (
             <li key={index}>
                 {score.player} - {score.score}

@@ -24,8 +24,15 @@ class HighscoresApi  {
     }
 
     add(name, score) {
-        // TODO: fix the adding of a new highscore
-        this.scores.add({player: name, score: score});
+        // Add a new score object to the list
+        const newScore = { player: name, score: score };
+        this.scores.push(newScore);
+
+        // Sort the scores based on the score property in descending order
+        this.scores.sort((a, b) => b.score - a.score);
+
+        // Save the updated scores to localStorage
+        localStorage.scores = JSON.stringify(this.scores);
     }
 }
 

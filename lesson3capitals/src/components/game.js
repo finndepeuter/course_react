@@ -1,30 +1,35 @@
-import {Link, useNavigate} from 'react-router-dom';
+import {Link } from 'react-router-dom';
 import CapitalsApi from '../apis/capitals_api';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import  InputForm  from './input_form';
 
 function Game() {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const api = new CapitalsApi();
     const [question, setQuestion]  = useState(0);
-    const [score, setScore] = useState(1);
+    const [score, setScore] = useState(0);
+    const [gameOver, setGameOver] = useState(false);
 
-    // TODO: fix the game, so the score is correcct
+    useEffect(() => {
+        console.log(score); // Log the updated score after each render
+      }, [score]);
+
     const handleAnswerClick = (selectedAnswer) => {
         // Check if the selected answer is correct
-        const isCorrect = selectedAnswer === api.get(question).capital;
-    
+        
         if (question + 1 < api.count()) {
-            if (isCorrect) {
-                setScore(score +1);
+            if (selectedAnswer === api.get(question).capital) {
+                setScore((score) => score + 1);
                 // If the answer is correct, move to the next question
             }
             setQuestion(question + 1);
         } else {
-            // If there are no more questions, navigate to form
-            // TODO: handle the input form
+            // If there are no more questions, handle last answer and navigate to form
+            if (selectedAnswer === api.get(question).capital) {
+                setScore((score) => score + 1);
+            }
+            setGameOver(true);
         }
-        console.log(score);
     };
 
     // Get the current question and answer options
@@ -41,9 +46,20 @@ function Game() {
         return (
             <div>
                 <h2>Game</h2>
-                <p>{question +1 }. Which city is the capital of {questionData.country}?</p>
-                {answerOptions}
-                <Link onClick={() => navigate(-1)}>stop playing</Link>
+                {gameOver ? (
+        <div>
+          <p>The end! Your score: {score}/{api.count()}</p>
+          <InputForm score={score} />
+        </div>
+      ) : (
+        <div>
+          <p>
+            {question + 1}. Which city is the capital of {questionData.country}?
+          </p>
+          {answerOptions}
+          <Link to="/">Stop playing</Link>
+        </div>
+      )}
             </div>
         );
 }
