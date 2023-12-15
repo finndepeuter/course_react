@@ -1,5 +1,5 @@
 import './App.css';
-import RecoilRoot from 'recoil';
+import {RecoilRoot} from 'recoil';
 import NewsReader from './components/news_reader';
 
 function App() {
