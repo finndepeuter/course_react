@@ -10,8 +10,8 @@ export default function NewsItem({post}) {
             <div className="card-divider">
                 {post.title}
             </div>
-            <a href="URL TO WEBSITE NEW YORK TIMES" target="_blank" rel="noreferrer">
-                <img src="IMAGE" alt="TITLE" />
+            <a href={post.url} target="_blank" rel="noreferrer">
+                <img src={post.multimedia[0].url} alt={post.title}/>
             </a>
             <div className="card-section">
                 <p>{post.abstract}</p>

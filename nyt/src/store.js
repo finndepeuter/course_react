@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { NytApi } from './apis/nyt_api'
+import NytApi from './apis/nyt_api'
 export const homeState = atom({
     key: 'homeState',
     default: 'home'
