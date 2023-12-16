@@ -12,6 +12,7 @@ function WeatherGraph() {
           setLoading(true);
           try {
             const result = await WeatherApi.getWeatherSlow(city);
+            console.log(result.data.list)
             setItems(result.data.list);
           } catch (error) {
             console.log('Something went wrong with the weather api.');
@@ -21,12 +22,36 @@ function WeatherGraph() {
         fetchData();
       }, [city]);
 
-    const sampleData = items;
+      const getTemperatureData = () => items.map(entry => entry.main.temp);
+      const getHumidityData = () => items.map(entry => entry.main.humidity);
+      const getPressureData = () => items.map(entry => entry.main.pressure);  
+
+      const lineStyle = {
+        fill: 'lightblue',
+        stroke: 'blue', // Set your desired color here
+        strokeWidth: 2, // Set the line width if needed
+      };
+
     return (
-        <Sparklines data={sampleData}>
+      <div>
+      {/* <h2>Humidity</h2>
+        <Sparklines data={getHumidityData()} style={{ width: '300px', height: '150px' }}>
             <SparklinesLine />
             <SparklinesReferenceLine type="mean" />
+        </Sparklines> */}
+
+        <h2>Temperature</h2>
+        <Sparklines data={getTemperatureData()} style={{ width: '300px', height: '150px'}}>
+            <SparklinesLine style={lineStyle} />
+            <SparklinesReferenceLine type="mean" />
         </Sparklines>
+
+        {/* <h2>Pressure</h2>
+        <Sparklines data={getPressureData()} style={{ width: '300px', height: '150px' }}>
+            <SparklinesLine />
+            <SparklinesReferenceLine type="mean" />
+        </Sparklines> */}
+      </div>
     )
 }
 

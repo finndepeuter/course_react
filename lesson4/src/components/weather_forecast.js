@@ -1,4 +1,3 @@
-import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
 import WeatherApi from '../apis/weather_api';
 import { useState, useEffect } from 'react';
 import WeatherGraph from './weather_graph';
