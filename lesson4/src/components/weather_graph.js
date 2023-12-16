@@ -2,7 +2,7 @@ import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-spark
 import WeatherApi from '../apis/weather_api';
 import { useState, useEffect } from 'react';
 
-function WeatherGraph() {
+function WeatherGraph(data) {
     const [city, setCity] = useState('Antwerp');
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -22,10 +22,6 @@ function WeatherGraph() {
         fetchData();
       }, [city]);
 
-      const getTemperatureData = () => items.map(entry => entry.main.temp);
-      const getHumidityData = () => items.map(entry => entry.main.humidity);
-      const getPressureData = () => items.map(entry => entry.main.pressure);  
-
       const lineStyle = {
         fill: 'lightblue',
         stroke: 'blue', // Set your desired color here
@@ -34,23 +30,11 @@ function WeatherGraph() {
 
     return (
       <div>
-      {/* <h2>Humidity</h2>
-        <Sparklines data={getHumidityData()} style={{ width: '300px', height: '150px' }}>
-            <SparklinesLine />
-            <SparklinesReferenceLine type="mean" />
-        </Sparklines> */}
-
         <h2>Temperature</h2>
-        <Sparklines data={getTemperatureData()} style={{ width: '300px', height: '150px'}}>
+        <Sparklines data={data} style={{ width: '300px', height: '150px'}}>
             <SparklinesLine style={lineStyle} />
             <SparklinesReferenceLine type="mean" />
         </Sparklines>
-
-        {/* <h2>Pressure</h2>
-        <Sparklines data={getPressureData()} style={{ width: '300px', height: '150px' }}>
-            <SparklinesLine />
-            <SparklinesReferenceLine type="mean" />
-        </Sparklines> */}
       </div>
     )
 }

@@ -25,9 +25,15 @@ function WeatherForecast() {
         return (temperature.push(item.main.temp))
         });
 
+        const getTemperatureData = () => items.map(entry => entry.main.temp);
+        const getHumidityData = () => items.map(entry => entry.main.humidity);
+        const getPressureData = () => items.map(entry => entry.main.pressure); 
+
     return (
         <div>
-            <WeatherGraph data={output}/>
+            <WeatherGraph data={getTemperatureData()} />
+            <WeatherGraph data={getHumidityData()} />
+            <WeatherGraph data={getPressureData()} />
         </div>
     )
 }
