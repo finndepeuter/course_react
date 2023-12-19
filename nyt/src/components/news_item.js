@@ -11,7 +11,7 @@ export default function NewsItem({post}) {
                 {post.title}
             </div>
             <a href={post.url} target="_blank" rel="noreferrer">
-                <img src={post.multimedia[0].url} alt={post.title}/>
+                <img src={post.image_url} alt={post.title}/>
             </a>
             <div className="card-section">
                 <p>{post.abstract}</p>
