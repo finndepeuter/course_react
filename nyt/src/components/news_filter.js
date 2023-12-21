@@ -1,5 +1,5 @@
-import React, { startTransition } from 'react';
-import { useRecoilState } from "recoil";
+import React, { startTransition, useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from "recoil";
 import { categoryState, newsItemsState } from "../store";
 
 export default function NewsFilter() {
@@ -7,24 +7,31 @@ export default function NewsFilter() {
   const sections = ["home", "arts", "automobiles", "books", "business", "fashion", "food", "health", "insider", "magazine", "movies", "national", "nyregion", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sundayreview", "technology", "theater", "tmagazine", "travel", "upshot", "world"];
 
   const [selectedCategory, setSelectedCategory] = useRecoilState(categoryState);
-  
+  const newsItems = useRecoilValue(newsItemsState);
+
+  function fetchData(selectedCategory) {
+    try {
+      // const newsItems = newsItemsState();
+      console.log('Fetched news items:', newsItems);
+    } catch (error) {
+      console.error('Error fetching news items:', error);
+    }
+  }
+
   function updateSection(event) {
     setSelectedCategory(event.target.value);
   }
 
-  function submitSection(event) {
-    // prevent default behavior, otherwise the form is submitted and the application is restarted
-    event.preventDefault(); 
-    // add your code below
-    console.log('selected category:', selectedCategory);
+  useEffect(() => {
     startTransition(() => {
-      try {
-        const newsItems = newsItemsState();
-        console.log('Fetched news items:', newsItems);
-      } catch (error) {
-        console.error('Error fetching news items:', error);
-      }
+      fetchData(selectedCategory);
     });
+  }, [selectedCategory]);
+
+  function submitSection(event) {
+    event.preventDefault();
+    console.log('selected category:', selectedCategory);
+    fetchData(selectedCategory); // You can call the function directly here too
   }
 
   return (
