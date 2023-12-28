@@ -1,6 +1,7 @@
 import WeatherApi from '../apis/weather_api';
 import { useState, useEffect } from 'react';
 import WeatherGraph from './weather_graph';
+import { PropagateLoader } from 'react-spinners';
 
 function WeatherForecast() {
     const [city, setCity] = useState('Antwerp');
@@ -16,6 +17,7 @@ function WeatherForecast() {
           try {
             const result = await WeatherApi.getWeatherSlow(city);
             setItems(result.data.list);
+            console.log(city, ":", result.data.list)
           } catch (error) {
             console.log('Something went wrong with the weather api.');
           }
@@ -30,25 +32,45 @@ function WeatherForecast() {
         setPressure(items.map(entry => entry.main.pressure));
       }, [items])
 
-      // const output = items.map((item, i) => {
-      //   return (temperature.push(item.main.temp))
-      //   });
-
-      //   const getTemperatureData = () => items.map(entry => entry.main.temp);
-      //   console.log("temperatures" , getTemperatureData());
-      //   const getHumidityData = () => items.map(entry => entry.main.humidity);
-      //   const getPressureData = () => items.map(entry => entry.main.pressure); 
-
     return (
         <div>
+          <div>
+            <input style={buttonStyle} type="button" value="Antwerp" onClick={() => setCity('Antwerp')} />
+            <input style={buttonStyle} type="button" value="Leuven" onClick={() => setCity('Leuven')} />
+          </div>
+          {loading && (
+        <div className="center">
+        <div className='sweet-loading'>
+          <PropagateLoader
+            color={'#3399ff'}
+            size={40}
+            loading={true}
+          />
+        </div>
+      </div>
+      )}
+      {!loading && (
+        <div className="row">
+          <h2>{city}</h2>
           <h3>Temperature</h3>
-            <WeatherGraph data={temperature} />
+            <WeatherGraph data={temperature} city={city} />
             <h3>humidity</h3>
-            <WeatherGraph data={humidity} />
+            <WeatherGraph data={humidity} city={city}/>
             <h3>Pressure</h3>
-            <WeatherGraph data={pressure} />
+            <WeatherGraph data={pressure} city={city}/>
+        </div>
+      )}
         </div>
     )
+}
+
+var buttonStyle = {
+  borderRadius: 4,
+  height: 50,
+  border: 0,
+  margin: 5,
+  color: "#FFFFFF",
+  backgroundColor: "#3388ff"
 }
 
 export default WeatherForecast;

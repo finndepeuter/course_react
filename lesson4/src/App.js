@@ -7,7 +7,7 @@ function App() {
     <div>
       <Greetings />
       <WeatherList />
-      <WeatherForecast/>
+      <WeatherForecast city={'Leuven'}/>
     </div>
   );
 }
