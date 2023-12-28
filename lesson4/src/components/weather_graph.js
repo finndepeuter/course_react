@@ -2,7 +2,7 @@ import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-spark
 import WeatherApi from '../apis/weather_api';
 import { useState, useEffect } from 'react';
 
-function WeatherGraph(data) {
+function WeatherGraph({data}) {
     const [city, setCity] = useState('Antwerp');
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -30,7 +30,6 @@ function WeatherGraph(data) {
 
     return (
       <div>
-        <h2>Temperature</h2>
         <Sparklines data={data} style={{ width: '300px', height: '150px'}}>
             <SparklinesLine style={lineStyle} />
             <SparklinesReferenceLine type="mean" />
